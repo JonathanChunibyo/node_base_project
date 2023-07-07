@@ -8,7 +8,7 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 
-class Database {
+class db {
   constructor() {
     this.sequelize = config.use_env_variable ?
       new Sequelize(process.env[config.use_env_variable], config) :
@@ -59,4 +59,5 @@ class Database {
   }
 }
 
-module.exports = new Database();
+const Database = new db()
+module.exports = Database;
