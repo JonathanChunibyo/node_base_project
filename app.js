@@ -47,7 +47,7 @@ class Server {
     // creation of all project routes
     fs.readdirSync(`${__dirname}/routes`)
       .map((fileName) => {
-        const route = `/api/${fileName.replace(/\.js$/, '')}`;
+        const route = `/api/${fileName.replace(/\.route.js$/, '')}`;
         this.app.use( route, require(`${__dirname}/routes/${fileName}`));
     });
   }
