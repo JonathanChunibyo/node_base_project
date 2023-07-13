@@ -1,6 +1,6 @@
 'use strict';
-const userQuery = require("../models/query/user.query");
-const errors = require('../errors/errors.authentication.json')
+var userQuery = require("../models/query/user.query");
+var errors = require('../errors/errors.authentication.json')
 
 let instance = null;
 class authenticationValidator {

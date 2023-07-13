@@ -1,6 +1,6 @@
 'use strict';
 // Query
-const userQuery = require('../models/query/user.query');
+var userQuery = require('../models/query/user.query');
 
 let instance = null;
 class authenticationController {
