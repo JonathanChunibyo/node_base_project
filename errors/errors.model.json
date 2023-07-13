@@ -1,0 +1,86 @@
+{
+    "userErrors": {
+        "nickName": {
+            "string.max": {
+                "code": "USER001",
+                "message": "The user nickName must have a maximum of 30 characters."
+            },
+            "string.min": {
+                "code": "USER002",
+                "message": "The user nickName must be at least 8 characters long."
+            },
+            "any.required": {
+                "code": "USER003",
+                "message": "nickName is required."
+            },
+            "string.base": {
+                "code": "USER004",
+                "message": "nickName must be a string"
+            }
+        },
+        "name": {
+            "string.max": {
+                "code": "USER005",
+                "message": "The user name must have a maximum of 50 characters."
+            },
+            "string.min": {
+                "code": "USER006",
+                "message": "The user name must be at least 2 characters long."
+            },
+            "any.required": {
+                "code": "USER007",
+                "message": "name is required."
+            },
+            "string.base": {
+                "code": "USER008",
+                "message": "name must be a string"
+            }
+        },
+        "lastName": {
+            "string.max": {
+                "code": "USER009",
+                "message": "The user lastName must have a maximum of 50 characters."
+            },
+            "string.min": {
+                "code": "USER010",
+                "message": "The user lastName must be at least 2 characters long."
+            },
+            "any.required": {
+                "code": "USER011",
+                "message": "lastName is required."
+            },
+            "string.base": {
+                "code": "USER012",
+                "message": "lastName must be a string"
+            }
+        },
+        "password": {
+            "string.max": {
+                "code": "USER013",
+                "message": "The user password must have a maximum of 16 characters."
+            },
+            "string.min": {
+                "code": "USER014",
+                "message": "The user password must be at least 8 characters long."
+            },
+            "any.required": {
+                "code": "USER015",
+                "message": "password is required."
+            },
+            "string.base": {
+                "code": "USER016",
+                "message": "password must be a string"
+            }
+        },
+        "queryErrors": {
+            "create": {
+                "code": "USER_001",
+                "message": "Something went wrong"
+            },
+            "findAll": {
+                "code": "USER_002",
+                "message": "Something went wrong"
+            }
+        }
+    }
+}

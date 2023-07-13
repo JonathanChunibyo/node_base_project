@@ -1,0 +1,6 @@
+{
+    "userAlreadyExist": {
+        "code": "AUTH_001",
+        "message": "the user nickname already exists"
+    }
+}
