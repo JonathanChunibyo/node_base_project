@@ -4,7 +4,7 @@ const db = require('../index');
 const User = db.getModel('User');
 
 // constants
-const errors = require('../../errors/errors.model.json')
+const errors = require('../../errors/model.errors.json')
 
 // libraries
 const logger = require('../../config/logger');
