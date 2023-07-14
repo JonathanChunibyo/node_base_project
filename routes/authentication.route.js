@@ -37,7 +37,7 @@ router.post('/login', async (req, res, next) => {
     } catch (error) {
         return res.sendError(error);
     }
-}, controller.login)
+}, controller.login);
 
 
 module.exports = router;

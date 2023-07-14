@@ -1,5 +1,6 @@
 'use strict';
 const userQuery = require("../models/query/user.query");
+// errors
 const errors = require('../errors/authentication.errors.json')
 // libraries
 const logger = require('../config/logger');
