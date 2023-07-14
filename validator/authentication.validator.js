@@ -1,6 +1,7 @@
 'use strict';
 const userQuery = require("../models/query/user.query");
-const errors = require('../errors/errors.authentication.json')
+// errors
+const errors = require('../errors/authentication.errors.json')
 // libraries
 const logger = require('../config/logger');
 const ErrorStackParser = require('error-stack-parser');

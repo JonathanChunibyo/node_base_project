@@ -1,6 +1,6 @@
 'use strict';
 const Joi = require('joi');
-const { userErrors } = require('../errors/errors.model.json');
+const { userErrors } = require('../errors/model.errors.json');
 
 let instance = null;
 class authenticationMiddleware {
