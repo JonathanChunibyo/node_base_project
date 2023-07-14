@@ -1,0 +1,89 @@
+const fs = require('fs');
+const path = require('path');
+
+const name = process.argv[2];
+const structureRoute = [
+    {
+        path: path.join(`${path.dirname(__dirname)}/routes`, `${name}Route.js`),
+        code: `
+'use strict';
+// Libraries
+const express = require('express');
+const router = express.Router();
+// import middleware
+const ${name}Middleware = require('${`../middleware/${name}Middleware.js`}')
+// import controller
+const ${name}Controller = require('${`../controllers/${name}Controller.js`}')
+// import validator
+const ${name}Validator = require('${`../validator/${name}Validator.js`}')
+        
+/* GET home page. */
+router.get('/');
+        
+module.exports = router;
+        `
+    },
+    {
+        path: path.join(`${path.dirname(__dirname)}/middleware`, `${name}Middleware.js`),
+        code: `
+'use strict';
+const Joi = require('joi');
+
+let instance = null;
+class ${name}Middleware {
+    constructor() {
+        if (!instance) {
+            instance = this;
+        }
+        return instance;
+    }
+}
+
+module.exports = new ${name}Middleware();
+        `
+    },
+    {
+        path: path.join(`${path.dirname(__dirname)}/controllers`, `${name}Controller.js`),
+        code: `
+'use strict';
+
+let instance = null;
+class ${name}Controller {
+    constructor() {
+        if (!instance) {
+            instance = this;
+        }
+        return instance;
+    }
+}
+module.exports = new ${name}Controller();
+`
+    },
+    {
+        path: path.join(`${path.dirname(__dirname)}/validator`, `${name}Validator.js`),
+        code: `
+'use strict';
+
+let instance = null;
+class ${name}Validator {
+  constructor() {
+      if (!instance) {
+          instance = this;
+      }
+      return instance;
+  }
+}
+module.exports = new ${name}Validator();
+`
+    }
+];
+
+structureRoute.forEach(({ path, code }) => {
+    fs.writeFile(path, code, (err) => {
+        if (err) {
+            console.error(`error when generating route {{${name}}}:`, err);
+        } else {
+            console.log(`path generated with file name {{${name}}} in the path {{${path}}}`);
+        }
+    });
+});

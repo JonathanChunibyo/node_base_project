@@ -47,7 +47,7 @@ class Server {
     // creation of all project routes
     fs.readdirSync(`${__dirname}/routes`)
       .map((fileName) => {
-        const route = `/api/${fileName.replace(/\.route.js$/, '')}`;
+        const route = `/api/${fileName.replace(/\Route.js$/, '')}`;
         this.app.use( route, require(`${__dirname}/routes/${fileName}`));
     });
   }
@@ -61,7 +61,7 @@ class Server {
       };
       // define a new response error res.formattedSend
       res.sendError = function (error) {
-        res.json({ status: false, data: null, error });
+        res.status(400).json({ status: false, data: null, error });
       };
       next();
     });
