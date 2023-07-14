@@ -1,15 +1,15 @@
 'use strict';
 // Libraries
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 // import middleware
-var authenticationMiddleware = require('../middleware/authenticationMiddleware.js')
+const authenticationMiddleware = require('../middleware/authenticationMiddleware.js')
 // import controller
-var authenticationController = require('../controllers/authentication.controller.js');
+const authenticationController = require('../controllers/authenticationController.js');
 // import validator
-var authenticationValidator = require('../validator/authenticationValidator.js');
+const authenticationValidator = require('../validator/authenticationValidator.js');
 
-/* POST home page. */
+/* POST register user */
 router.post('/register', async (req, res, next) => {
     try {
         const { error: errorBody } = authenticationMiddleware.schemaRegister.validate(req.body);
@@ -23,5 +23,21 @@ router.post('/register', async (req, res, next) => {
         return res.sendError(error);
     }
 }, authenticationController.register);
+
+/* POST login user */
+router.post('/login', async (req, res, next) => {
+    try {
+        const { error: errorBody } = authenticationMiddleware.schemaLogin.validate(req.body);
+        if (errorBody) return res.sendError(errorBody.details[0].message);
+        else {
+            const [error] = await authenticationValidator.userExist(req.body, req);
+            if (error) return res.sendError(error);
+            next();
+        }
+    } catch (error) {
+        return res.sendError(error);
+    }
+}, authenticationController.login)
+
 
 module.exports = router;

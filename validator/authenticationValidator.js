@@ -1,6 +1,10 @@
 'use strict';
-var userQuery = require("../models/query/user.query");
-var errors = require('../errors/errors.authentication.json')
+const userQuery = require("../models/query/user.query");
+const errors = require('../errors/errors.authentication.json')
+// libraries
+const logger = require('../config/logger');
+const ErrorStackParser = require('error-stack-parser');
+const bcrypt = require('bcryptjs');
 
 let instance = null;
 class authenticationValidator {
@@ -14,10 +18,30 @@ class authenticationValidator {
     async userAlreadyExist(where) {
         try {
             let error = [];
-            const [ user ] = await userQuery.findAllUser(where);
-            if(user) error.push(errors.userAlreadyExist);
+            const user = await userQuery.findOne(where);
+            if (user) error.push(errors.userAlreadyExist);
             return error;
         } catch (error) {
+            const [stackTrace] = ErrorStackParser.parse(error);
+            logger.error(JSON.stringify(stackTrace, null, 2));
+
+            throw error;
+        }
+    }
+
+    async userExist({ nickName, password: passwordValidate }, req) {
+        try {
+            let error = [];
+            req.validationData = {};
+            const { password, ...user } = await userQuery.findOne({ nickName });
+            if (!user) error.push(errors.userDoesNotExist);
+            else if (bcrypt.compareSync(passwordValidate, password)) req.validationData.user = user;
+            else error.push(errors.userIncorrectPassword);
+            return error;
+        } catch (error) {
+            const [stackTrace] = ErrorStackParser.parse(error);
+            logger.error(JSON.stringify(stackTrace, null, 2));
+
             throw error;
         }
     }

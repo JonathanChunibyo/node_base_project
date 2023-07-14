@@ -2,5 +2,13 @@
     "userAlreadyExist": {
         "code": "AUTH_001",
         "message": "the user nickname already exists"
+    },
+    "userDoesNotExist": {
+        "code": "AUTH_002",
+        "message": "credentials are incorrect, user does not exist"
+    },
+    "userIncorrectPassword": {
+        "code": "AUTH_003",
+        "message": "Incorrect password, check it and try again."
     }
 }

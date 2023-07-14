@@ -80,6 +80,10 @@
             "findAll": {
                 "code": "USER_002",
                 "message": "Something went wrong"
+            },
+            "findOne": {
+                "code": "USER_003",
+                "message": "Something went wrong"
             }
         }
     }

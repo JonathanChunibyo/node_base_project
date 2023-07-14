@@ -16,6 +16,7 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "joi": "^17.9.2",
+    "jsonwebtoken": "^9.0.1",
     "morgan": "~1.9.1",
     "mysql2": "^3.3.5",
     "sequelize": "^6.32.0",
