@@ -1,0 +1,102 @@
+const fs = require('fs');
+const path = require('path');
+
+const name = process.argv[2];
+const structureRoute = [
+    {
+        path: path.join(`${path.dirname(__dirname)}/routes`, `${name}.route.js`),
+        code: `
+'use strict';
+// Libraries
+const express = require('express');
+const router = express.Router();
+// import middleware
+const middleware = require('${`../middleware/${name}.middleware.js`}')
+// import controller
+const controller = require('${`../controllers/${name}.controller.js`}')
+// import validator
+const validator = require('${`../validator/${name}.validator.js`}')
+        
+/* GET home page. */
+router.get('/');
+        
+module.exports = router;
+        `
+    },
+    {
+        path: path.join(`${path.dirname(__dirname)}/middleware`, `${name}.middleware.js`),
+        code: `
+'use strict';
+const Joi = require('joi');
+
+let instance = null;
+class ${name}Middleware {
+    constructor() {
+        if (!instance) {
+            instance = this;
+        }
+        return instance;
+    }
+}
+
+module.exports = new ${name}Middleware();
+        `
+    },
+    {
+        path: path.join(`${path.dirname(__dirname)}/controllers`, `${name}.controller.js`),
+        code: `
+'use strict';
+
+let instance = null;
+class ${name}Controller {
+    constructor() {
+        if (!instance) {
+            instance = this;
+        }
+        return instance;
+    }
+}
+module.exports = new ${name}Controller();
+`
+    },
+    {
+        path: path.join(`${path.dirname(__dirname)}/errors`, `${name}.errors.json`),
+        code: `
+{
+
+}
+`
+    },
+    {
+        path: path.join(`${path.dirname(__dirname)}/validator`, `${name}.validator.js`),
+        code: `
+'use strict';
+// errors
+const errors = require('../errors/${name}.errors.json')
+// libraries
+const logger = require('../config/logger');
+const ErrorStackParser = require('error-stack-parser');
+
+let instance = null;
+class ${name}Validator {
+  constructor() {
+      if (!instance) {
+          instance = this;
+      }
+      return instance;
+  }
+}
+module.exports = new ${name}Validator();
+`
+    }
+];
+
+structureRoute.forEach(({ path, code }) => {
+    fs.writeFile(path, code, (err) => {
+        if (err) {
+            console.error(`error when generating route {{${name}}}:`, err);
+        } else {
+            console.log(`path generated with file name {{${name}}} in the path {{${path}}}`);
+        }
+    });
+});

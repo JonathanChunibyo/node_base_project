@@ -61,7 +61,7 @@ class Server {
       };
       // define a new response error res.formattedSend
       res.sendError = function (error) {
-        res.json({ status: false, data: null, error });
+        res.status(400).json({ status: false, data: null, error });
       };
       next();
     });
